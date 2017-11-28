@@ -50,7 +50,7 @@ namespace stratfaucet.Lib
                 return new Balance
                 {
                     balance = (bal.BalancesList.First().AmountConfirmed / coinDivisor),
-                    returnAddress = address.Substring(address.IndexOf("\"") + 1, address.LastIndexOf("\"") -1)
+                    returnAddress = address.Substring(address.IndexOf("\"") + 1, address.LastIndexOf("\"") - 1)
                 };
             }
             catch (Exception e)
@@ -62,34 +62,55 @@ namespace stratfaucet.Lib
                 };
             }
         }
-        public async Task<Transaction> SendCoin(Recipient recipient)
+        public async Task<Recipient> SendCoin(Recipient recipient)
         {
-            var amount = (await GetBalance()).balance / 100;
 
-            BuildTransaction buildTransaction = new BuildTransaction{
-                WalletName = walletName,
-                AccountName = accountName,
-                CoinType = 105,
-                Password = password,
-                DestinationAddress = recipient.address,
-                Amount = amount.ToString(),
-                FeeType = "low",
-                AllowUnconfirmed = true
-            };
-            var transaction = await stratApi.BuildTransaction(buildTransaction);
+            if (newRecipient(recipient))
+            {
+                var amount = (await GetBalance()).balance / 100;
 
-            SendTransaction sendTransaction = new SendTransaction{
-                Hex = transaction.Hex
-            };
+                BuildTransaction buildTransaction = new BuildTransaction
+                {
+                    WalletName = walletName,
+                    AccountName = accountName,
+                    CoinType = 105,
+                    Password = password,
+                    DestinationAddress = recipient.address,
+                    Amount = amount.ToString(),
+                    FeeType = "low",
+                    AllowUnconfirmed = true
+                };
+                var transaction = await stratApi.BuildTransaction(buildTransaction);
+                recipient.transaction_id = transaction.TransactionId;
 
-          var resp =  await stratApi.SendTransaction(sendTransaction);
-          return new Transaction{
-              confirmation = transaction.TransactionId
-          };
+                SendTransaction sendTransaction = new SendTransaction
+                {
+                    Hex = transaction.Hex
+                };
+
+                var resp = await stratApi.SendTransaction(sendTransaction);
+
+                recipient.is_sent = true;
+
+                Startup.WalletQueue.Transactions.Remove(recipient.address, out Recipient rec);
+                Startup.WalletQueue.Transactions.GetOrAdd(recipient.address, recipient);
+
+                Startup.AddressesSeen.Append(recipient.address);
+                Startup.IPAddressesSeen.Append(recipient.ip_address);
+
+                return recipient;
+
+            } else  {
+              return null;
+            }
         }
         public bool newRecipient(Recipient recipient)
         {
-            return true;
+            if(Startup.IPAddressesSeen.Contains(recipient.ip_address) || Startup.AddressesSeen.Contains(recipient.address)){
+              return false;
+            } else {
+              return true;
+            }
         }
 
     }

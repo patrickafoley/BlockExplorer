@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FluentScheduler;
+using stratfaucet.Lib;
+using stratfaucet.Jobs;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Concurrent;
 
 namespace stratfaucet
 {
@@ -18,11 +23,26 @@ namespace stratfaucet
         }
 
         public IConfiguration Configuration { get; }
+        public static IWalletQueueService WalletQueue;
+        public static ConcurrentQueue<string> AddressesSeen;
+        public static ConcurrentQueue<string> IPAddressesSeen;
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        public static IWalletUtils WalletUtils;
+
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // TODO switch to scheduler that allows dependency injection in constructor
+            WalletQueue = new WalletQueueService();
             services.AddMvc();
+
+            AddressesSeen = new ConcurrentQueue<string>();
+            IPAddressesSeen = new ConcurrentQueue<string>();
+
+
+            WalletUtils = new WalletUtils(Configuration);
+
+            InitJobScheduler();
 
         }
 
@@ -53,7 +73,12 @@ namespace stratfaucet
                     defaults: new { controller = "Home", action = "Index" });
 
             });
+        }
 
+        private void InitJobScheduler() {
+            JobManager.AddJob(() => SendCoinJob.Execute(), s => s
+                .ToRunEvery(3)
+                .Seconds());
         }
     }
 }
