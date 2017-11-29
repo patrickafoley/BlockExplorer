@@ -19,6 +19,8 @@ public partial class Recipient
 
     public bool is_sent{get; set;}
 
+    public bool is_error{get; set;}
+
     [JsonIgnore]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime created_at { get; set; }

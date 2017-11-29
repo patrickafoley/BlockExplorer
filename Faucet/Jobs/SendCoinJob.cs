@@ -6,13 +6,17 @@ namespace stratfaucet.Jobs {
   public class SendCoinJob {
 
       public static void Execute() {
-          var walletQueue = Startup.WalletQueue; // TODO singleton
+          Console.WriteLine("SendCoinJob.Execute");
+          // var walletQueue = Startup.WalletQueue; // TODO singleton
           var walletUtils = Startup.WalletUtils;
-          foreach(Recipient recp in walletQueue.Transactions.Values)
+          foreach(Recipient recp in  Startup.WalletQueue.Transactions.Values)
           {
-            if(!recp.is_sent){
-              Console.WriteLine("Sending Transaction {0}  ",  recp.address);
+            Console.WriteLine("Sending Transaction {0}  ",  recp.address);
+            if(!recp.is_sent && !recp.is_error)
+            {
               walletUtils.SendCoin(recp);
+            } else{
+
             }
           }
       }

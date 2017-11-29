@@ -62,12 +62,21 @@ namespace stratfaucet.Lib
                 };
             }
         }
+        private  void RemoveRecipient(Recipient recipient){
+            Startup.WalletQueue.Transactions.Remove(recipient.address, out Recipient rec);
+        }
+
         public async Task<Recipient> SendCoin(Recipient recipient)
         {
 
             if (newRecipient(recipient))
             {
+
+              try{
                 var amount = (await GetBalance()).balance / 100;
+
+                recipient.is_sent = true;
+                RemoveRecipient(recipient);
 
                 BuildTransaction buildTransaction = new BuildTransaction
                 {
@@ -90,15 +99,17 @@ namespace stratfaucet.Lib
 
                 var resp = await stratApi.SendTransaction(sendTransaction);
 
-                recipient.is_sent = true;
-
-                Startup.WalletQueue.Transactions.Remove(recipient.address, out Recipient rec);
-                Startup.WalletQueue.Transactions.GetOrAdd(recipient.address, recipient);
-
                 Startup.AddressesSeen.Append(recipient.address);
                 Startup.IPAddressesSeen.Append(recipient.ip_address);
 
                 return recipient;
+              }catch(Refit.ApiException exc){
+                Console.WriteLine(exc.ToString());
+                Console.WriteLine(exc.Content);
+                recipient.is_error = true;
+                RemoveRecipient(recipient);
+                return null;
+              }
 
             } else  {
               return null;

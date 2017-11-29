@@ -16,12 +16,12 @@ namespace stratfaucet.Controllers
     [Route("api/[controller]")]
     public class FaucetController : Controller
     {
-        private IWalletQueueService _walletQueue;
+
         private IWalletUtils _walletUtils;
         public FaucetController(IConfiguration config)
         {
             // TODO dependency injection
-            _walletQueue = Startup.WalletQueue;
+
             _walletUtils = Startup.WalletUtils;
         }
 
@@ -39,33 +39,37 @@ namespace stratfaucet.Controllers
         }
 
         [HttpPost("SendCoin")]
-        public async Task<Recipient> SendCoin([FromBody] Recipient recipient)
+        public Recipient SendCoin([FromBody] Recipient recipient)
         {
             recipient.ip_address = HttpContext.Connection.RemoteIpAddress.MapToIPv4().GetAddressBytes().ToString();
 
-            if (_walletQueue.Transactions.Count > 100)
+            if (Startup.WalletQueue.Transactions.Count > 100)
             {
                 // TODO figure out the "right" way to return an error object to an angular ui
                 return null;
             }
 
-            _walletQueue.Transactions.GetOrAdd(recipient.address, recipient);
-            return await WaitForTransaction(recipient.address);
+            Startup.WalletQueue.Transactions.GetOrAdd(recipient.address, recipient);
+            return WaitForTransaction(recipient.address);
         }
 
 
-        private async Task<Recipient> WaitForTransaction(string address)
+        private  Recipient WaitForTransaction(string address)
         {
             int timeout = 30;
             int waitCount = 1;
             while (waitCount < timeout)
             {
                 Recipient recipient;
-                if (_walletQueue.Transactions.TryGetValue(address, out recipient))
+                if (Startup.WalletQueue.Transactions.TryGetValue(address, out recipient))
                 {
                     if (recipient.is_sent)
                     {
                         return recipient;
+                    }
+                    else if(recipient.is_error) {
+                        Startup.WalletQueue.Transactions.Remove(recipient.address, out Recipient rec );
+                        return null;
                     }
                     else
                     {
