@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2098430789845b2d5216"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8a9bee108e8472e8f89d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -70047,7 +70047,7 @@ exports = module.exports = __webpack_require__(25)(undefined);
 
 
 // module
-exports.push([module.i, "@media (max-width: 767px) {\r\n    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */\r\n    .body-content {\r\n        padding-top: 50px;\r\n    }\r\n}\n", ""]);
+exports.push([module.i, ".body-content {\r\n  width: 460px;\r\n  background-color: #ffffff;\r\n  color: inherit;\r\n  padding: 15px 20px 20px 20px;\r\n  border-color: #e7eaec;\r\n  border-image: none;\r\n  border-style: solid solid none;\r\n  border-width: 1px 0;\r\n  margin-top:100px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -70061,7 +70061,7 @@ exports = module.exports = __webpack_require__(25)(undefined);
 
 
 // module
-exports.push([module.i, "li .glyphicon {\r\n    margin-right: 10px;\r\n}\r\n\r\n/* Highlighting rules for nav menu items */\r\nli.link-active a,\r\nli.link-active a:hover,\r\nli.link-active a:focus {\r\n    background-color: #1382c6;\r\n    color: black;\r\n}\r\n\r\n/* Keep the nav menu independent of scrolling and on top of other items */\r\n.main-nav {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    z-index: 1;\r\n}\r\n\r\n.navbar-brand {\r\n    background: white;\r\n    color: #1382c6;\r\n}\r\n\r\n.navbar  {\r\n    background: white;\r\n}\r\n\r\n\r\n@media (min-width: 768px) {\r\n    /* On small screens, convert the nav menu to a vertical sidebar */\r\n    .main-nav {\r\n        height: 100%;\r\n        width: calc(25% - 20px);\r\n    }\r\n    .navbar {\r\n        border-radius: 0px;\r\n        border-width: 0px;\r\n        height: 100%;\r\n    }\r\n    .navbar-header {\r\n        float: none;\r\n    }\r\n    .navbar-collapse {\r\n        border-top: 1px solid #444;\r\n        padding: 0px;\r\n    }\r\n    .navbar ul {\r\n        float: none;\r\n    }\r\n    .navbar li {\r\n        float: none;\r\n        font-size: 15px;\r\n        margin: 6px;\r\n    }\r\n    .navbar li a {\r\n        padding: 10px 16px;\r\n        border-radius: 4px;\r\n    }\r\n    .navbar a {\r\n        /* If a menu item's text is too long, truncate it */\r\n        width: 100%;\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n}\n", ""]);
+exports.push([module.i, "li .glyphicon {\r\n    margin-right: 10px;\r\n}\r\n\r\n/* Highlighting rules for nav menu items */\r\nli.link-active a,\r\nli.link-active a:hover,\r\nli.link-active a:focus {\r\n    background-color: #1382c6;\r\n    color: black;\r\n}\r\n\r\n/* Keep the nav menu independent of scrolling and on top of other items */\r\n.main-nav {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    z-index: 1;\r\n}\r\n\r\n.navbar-brand {\r\n    background: white;\r\n    color: #1382c6;\r\n}\r\n\r\n.navbar  {\r\n    background: white;\r\n}\r\n\r\n\r\n@media (min-width: 768px) {\r\n    /* On small screens, convert the nav menu to a vertical sidebar */\r\n    .main-nav {\r\n        height: 100%;\r\n        width: calc(25% - 20px);\r\n    }\r\n    .navbar {\r\n        border-radius: 0px;\r\n        border-width: 0px;\r\n        height: 100%;\r\n    }\r\n    .navbar-header {\r\n        float: none;\r\n    }\r\n    .navbar-collapse {\r\n        border-top: 1px solid #444;\r\n        padding: 0px;\r\n    }\r\n    .navbar ul {\r\n        float: none;\r\n    }\r\n    .navbar li {\r\n        float: none;\r\n        font-size: 15px;\r\n        margin: 6px;\r\n    }\r\n    .navbar li a {\r\n        padding: 10px 16px;\r\n        border-radius: 4px;\r\n    }\r\n    .navbar a {\r\n        /* If a menu item's text is too long, truncate it */\r\n        width: 100%;\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n}\r\n", ""]);
 
 // exports
 
@@ -70396,19 +70396,19 @@ module.exports = XmlEntities;
 /* 58 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"about col-sm-9\">\n    <div class=\"jumbotron\">\n        <h3>\"I made a thing in asp.net and TypeScript for the first time! YAY!\" - paf0</h3>\n    </div>\n</div>\n";
+module.exports = "<div class=\"about col-sm-9\">\r\n    <div class=\"jumbotron\">\r\n        <h3>\"I made a thing in asp.net and TypeScript for the first time! YAY!\" - paf0</h3>\r\n    </div>\r\n</div>\r\n";
 
 /***/ }),
 /* 59 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container-fluid'>\r\n    <div class='row'>\r\n        <div class='col-sm-3'>\r\n            <nav-menu></nav-menu>\r\n        </div>\r\n        <div class='col-sm-9 body-content'>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>\n";
+module.exports = "<div class='container-fluid'>\r\n    <div class='row'>\r\n        <div class='body-content center-block'>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ }),
 /* 60 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"faucet col-sm-9\">\n  <h1>Get TSTRAT for testing</h1>\n  <p>I have currently have {{ this.balance ? this.balance.balance : 0}} TSTRAT to share </p>\n  <p>When you're done, you can return them back here: {{this.balance ? this.balance.returnAddress : \"?\"}}</p>\n  <div class=\"row d-flex justify-content-center\">\n    <form class=\"col-sm-12 text-left panel\" [formGroup]=\"sendCoinForm\">\n      <div class=\"form-group\">\n        <label class=\"text-left\" for=\"Address\">Address</label>\n        <input type=\"text\" class=\"form-control\" id=\"address\" formControlName=\"address\" placeholder=\"Enter your TSTRAT address.\">\n        <div *ngIf=\"formErrors.address\" class=\"form-control-feedback\">{{ formErrors.address }}</div>\n        <button type=\"button\" class=\"btn btn-sm\" [disabled]=\"!sendCoinForm.valid\" (click)=\"onSendClick()\">Get TSTRAT</button>\n      </div>\n    </form>\n    <div *ngIf=\"this.transaction\" class=\"jumbotron\">\n      <h3 class=\"row col-sm-12\">Success! Transaction: </h3>\n      <a href=\"https://chainz.cryptoid.info/strat-test/tx.dws?{{this.transaction.confirmation}}.htm\">\n        {{this.transaction.confirmation}}\n      </a>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"faucet\">\r\n  <h2>Get TSTRAT for testing</h2>\r\n  <p>\r\n    I have currently have {{ this.balance ? this.balance.balance : 0}} TSTRAT to share. \r\n    When you're done, you can return them back here: {{this.balance ? this.balance.returnAddress : \"?\"}}\r\n  </p>\r\n  <form class=\"text-left panel\" [formGroup]=\"sendCoinForm\">\r\n    <div class=\"form-group\">\r\n      <label class=\"control-label\" for=\"Address\">Address</label>\r\n      <input type=\"text\" class=\"form-control\" id=\"address\" formControlName=\"address\" placeholder=\"Enter your TSTRAT address.\">\r\n      <div *ngIf=\"formErrors.address\" class=\"form-control-feedback\">{{ formErrors.address }}</div>\r\n    </div>\r\n    <button type=\"button\" class=\"btn btn-primary btn-block\" [disabled]=\"!sendCoinForm.valid\" (click)=\"onSendClick()\">Get TSTRAT</button>\r\n  </form>\r\n  <div *ngIf=\"this.transaction\" class=\"jumbotron\">\r\n    <h3>Success! Transaction: </h3>\r\n    <a href=\"https://chainz.cryptoid.info/strat-test/tx.dws?{{this.transaction.confirmation}}.htm\">\r\n      {{this.transaction.confirmation}}\r\n    </a>\r\n  </div>\r\n</div>\r\n";
 
 /***/ }),
 /* 61 */
