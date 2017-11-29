@@ -4,7 +4,7 @@ function Model() {
     self.loaded = ko.observable(true);
     self.balance = { balance: ko.observable(0), returnAddress: ko.observable('') };
     self.address = ko.observable();
-    self.transaction = ko.observable();
+    self.transactionId = ko.observable();
     self.valid = ko.computed(function () {
         return $.trim(self.address()).length == 34;
     });
@@ -16,13 +16,14 @@ function Model() {
     });
 
     self.onSendClick = function () {
-        $.post({
+        $.ajax({
             url: 'api/Faucet/SendCoin', 
-            data: { address: self.address() },
+            method:'POST',
+            data: JSON.stringify({ address: self.address() }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8'
         }).done(function (result) {
-            self.transaction(result);
+            self.transactionId(result.transactionId);
             self.address('');
         });
     }
